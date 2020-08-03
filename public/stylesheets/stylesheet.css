@@ -6,9 +6,6 @@ body, html {
 }
 
 .landing-container {
-    /* background-image: url('/resources/download.gif');
-    background-repeat: no-repeat;
-    background-size: cover; */
     height: 100%;
     width: 100%;
 }
@@ -31,14 +28,6 @@ body, html {
     left: 50%;
     transform: translate(-49%, -50%);
 }
-
-/* video {
-    width: 100% !important;
-    height: auto;
-    position: absolute;
-} */
-
-
 
 .container-fluid {
     padding: 0;
@@ -118,7 +107,6 @@ hr {
 .footer-container {
     text-align: center;
     margin: 3rem 0 0 0;
-    /* background-color: rgba(190, 15, 15, 0.288); */
     color: rgb(199, 198, 198);
 }
 
