@@ -1,0 +1,152 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    font-family: 'Recursive', sans-serif;
+}
+
+.landing-container {
+    background-image: url('/resources/download.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/* body, html {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    background-image: url('/Icon-removebg.png');
+    background-repeat: no-repeat;
+    background-position: center 40%;
+} */
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar-toggler:focus{
+    outline: none;
+}
+
+.navbar {
+    font-size: 1.4rem;
+    padding: 2rem 0 0 2rem;
+}
+
+.navbar a {
+    padding: 0.8rem 0.2rem;
+}
+
+
+.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+    color: rgb(190, 15, 15) !important;
+}
+
+.nav-item img {
+    padding-top: 10%;
+    width: 3rem;
+}
+
+.about-container {
+    color: rgb(190, 15, 15);
+    padding: 0 3rem;
+    margin-top: 3rem;
+}
+
+.about-container p{
+    padding-left: 1.6rem;
+}
+
+.about-container h2 {
+    font-weight: 700;
+}
+
+hr {
+    background-color: rgb(190, 15, 15);
+    margin: 1.8rem 0;
+}
+
+.news-container{
+    color: rgb(199, 198, 198);
+    padding: 0 3rem;
+}
+
+.news-card {
+    padding: 2rem;
+    background-color: rgba(128, 128, 128, 0.212);
+}
+
+.news-card p {
+    font-size: 0.9rem;
+}
+
+.news-vid {
+    margin: auto auto;
+}
+
+.contact-container{
+    color: rgb(190, 15, 15);
+    padding: 0 10rem;
+    text-align: center;
+}
+
+.btn-danger {
+    background-color: rgb(190, 15, 15);
+    border: none;
+}
+
+.footer-container {
+    text-align: center;
+    margin: 3rem 0 0 0;
+    /* background-color: rgba(190, 15, 15, 0.288); */
+    color: rgb(199, 198, 198);
+}
+
+.footer-container h5{
+    font-size: 1rem;
+}
+
+.footer-container p{
+    font-size: 0.7rem;
+}
+
+
+
+@media (max-width: 1090px){
+
+    .landing-container{
+        background-size: contain;
+        background-size: 80rem;
+        background-position: center;
+    }
+
+    .nav-item {
+        width: 20%;
+    }
+
+    .about-container {
+        padding: 0 1rem;
+    }
+
+    .news-container {
+        padding: 0 1rem;
+    }
+
+    .news-vid {
+        padding: 0 0 2rem 0;
+    }
+    
+    .contact-container{
+        padding: 0 1rem;
+    }
+
+    .hide-text {
+        display: none;
+    }
+
+    .nav-link {
+        color: rgb(255, 251, 251) !important;
+    }
+}
