@@ -10,6 +10,6 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
-app.listen(process.env.PORT, process.env.IP, () => {
+app.listen(8080, process.env.IP, () => {
     console.log('Server running')
 })

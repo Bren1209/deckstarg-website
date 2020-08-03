@@ -6,21 +6,39 @@ body, html {
 }
 
 .landing-container {
-    background-image: url('/resources/download.gif');
+    /* background-image: url('/resources/download.gif');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     height: 100%;
     width: 100%;
 }
 
-/* body, html {
-    height: 100%;
+.video-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    background-color: rgb(0, 0, 0);
-    background-image: url('/Icon-removebg.png');
-    background-repeat: no-repeat;
-    background-position: center 40%;
+    height: 100%;
+    overflow: hidden;
+}
+.video-container video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-49%, -50%);
+}
+
+/* video {
+    width: 100% !important;
+    height: auto;
+    position: absolute;
 } */
+
+
 
 .container-fluid {
     padding: 0;
@@ -52,7 +70,7 @@ body, html {
 .about-container {
     color: rgb(190, 15, 15);
     padding: 0 3rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 .about-container p{
@@ -114,13 +132,7 @@ hr {
 
 
 
-@media (max-width: 1090px){
-
-    .landing-container{
-        background-size: contain;
-        background-size: 80rem;
-        background-position: center;
-    }
+@media (max-width: 991px){
 
     .nav-item {
         width: 20%;
