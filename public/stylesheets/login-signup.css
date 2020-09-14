@@ -1,0 +1,24 @@
+.form-container {
+  text-align: center;
+  width: 30%;
+  margin-top: 7rem;
+}
+
+.form-container h2 {
+  color: rgb(134, 134, 134);
+}
+
+.form-group {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-container input {
+  margin: 1rem auto;
+}
+
+.footer-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0%;
+}
