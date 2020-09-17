@@ -89,6 +89,10 @@ hr {
     font-size: 0.9rem;
 }
 
+.news-card a {
+    color: rgb(190, 15, 15);
+}
+
 .news-vid {
     margin: auto auto;
 }
@@ -118,7 +122,30 @@ hr {
     font-size: 0.7rem;
 }
 
+.readMoreVid {
+    width: 50%;
+    margin: 0 auto;
+}
 
+.readMoreText {
+    font-size: 1.3rem;
+    margin: 2rem 0;
+    text-align: center;
+    color: rgb(199, 198, 198);
+}
+
+.comments-container h5 {
+    color: rgb(190, 15, 15);
+}
+
+.comments-c#be0f0f{
+    color: inherit;
+    font-size: 0.8rem;
+}
+
+.comments-container p {
+    color: rgb(194, 194, 194);
+}
 
 @media (max-width: 991px){
 

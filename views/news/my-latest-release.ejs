@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+  <div class="embed-responsive embed-responsive-16by9 readMoreVid">
+    <iframe class='embed-responsive-item' width="560" height="315" src="https://www.youtube.com/embed/dfTmtDaXBqM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p class="readMoreText">This has been quite the struggle. Shit. Watch the video. Do it. Comment below for street cred.</p>
+</div>
+
+<div class="container comments-container">
+  <h3 class='mb-5'>COMMENTS: <a href="/my-latest-release/write"><button class='btn btn-danger btn-lg float-right'>Write <i class="fas fa-pencil-alt"></i></button></a></h3>
+  
+  <% comments.forEach(function(comment){ %>
+    <h5><%= comment.author.username %></h5>
+    <h6>on <%= comment.date %></h6>
+    <p><%= comment.text %></p>
+    <hr>
+  <% }) %>
+
+</div>
+
+
+<%- include('../partials/footer.ejs') %>

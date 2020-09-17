@@ -1,0 +1,20 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="form-container container">
+  <h2>Add a comment</h2>
+  <form action="/100-sub-giveaway/comments" method='POST'>
+      <div class="form-group">
+        <textarea class="form-control" name="text" id="message" rows="7" required maxlength="210"></textarea>
+      </div>
+      <button type='submit' class='btn btn-lg btn-dark mt-4'>Submit</button>
+  </form>
+</div>
+
+<div class="row footer-container">
+  <div class="col-12">
+      <h5>Website by: <a href="http://www.bren-10.co.za/" target="_blank">Bren-10</a></h5>
+      <p>&copy; Andre Schumann, Brendan Stander - 2020</p>
+  </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

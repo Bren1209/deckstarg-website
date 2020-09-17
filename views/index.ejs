@@ -47,12 +47,18 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto mr-5">
-                            <li class="nav-item mr-4">
-                                <a class="nav-link" href="/login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/signup">Sign up</a>
-                            </li>
+                            <% if(!currentUser){ %>
+                                <li class="nav-item mr-4">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                <li class="nav-item mr-4">
+                                    <a class="nav-link" href="/signup">Sign up</a>
+                                </li>
+                            <% } else { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
                 </nav>
@@ -101,10 +107,6 @@
                     <div class="col-lg-12">
                         <h2><i class="far fa-newspaper"></i> News</h2>
                         <hr>
-                        <p>
-                            This section can be updated whenever there's something interesting happening. Like an upcoming stream, a giveaway,
-                            the release of new t-shirts or just whatever is on your mind. Almost like a blog.
-                        </p>
                     </div>
                 </div>
                 <div class="row mt-4 news-card">
@@ -114,49 +116,29 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h3>Live Stream this Saturday!</h3>
-                        <p>Posted on: 03-Aug-2020</p>
+                        <h3>100 Sub giveaway!</h3>
+                        <p>Posted on: 17-Sept-2020</p>
                         <hr>
                         <p>
-                            Tune in on twicth this Saturday 08/08/2020 at 15:00 SAST to watch me and the bois get drunk while playing League.
-                            <br><br>
-                            I might just do a small giveaway somewhere in the middle, depending on how much I've had to drink...
+                            We're almost there, click the button below to comment what you think the giveaway should be!
                         </p>
+                        <a href="/news/100-sub-giveaway">Read more & comment <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="row mt-4 news-card">
-                    <div class="col-lg-6">
-                        <h3>My latest release!</h3>
-                        <p>Posted on: 22-Jul-2020</p>
-                        <hr>
-                        <p>
-                            I train like that italian guy from the Rocky movie.
-                            <br><br>
-                            Watch me f*** up some monsters!
-                        </p>
-                    </div>
                     <div class="col-lg-6 news-vid">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class='embed-responsive-item' width="560" height="315" src="https://www.youtube.com/embed/dfTmtDaXBqM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4 news-card">
-                    <div class="col-lg-6 news-vid">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class='embed-responsive-item' width="560" height="315" src="https://www.youtube.com/embed/JEsgoiTWLMo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
                     <div class="col-lg-6">
-                        <h3>It's been a while.</h3>
-                        <p>Posted on: 14-Jul-2020</p>
+                        <h3>My latest release</h3>
+                        <p>Posted on: 22-Jul-2020</p>
                         <hr>
                         <p>
-                            I'm back after about 2 months!
-                            <br><br>
-                            Watch me play some Monster Hunter World in my latest video!
-                            Give it a quick like while you're at it, why not? :)
+                            Monster Hunter World. Give it a watch!
                         </p>
+                        <a href="/news/my-latest-release">Read more & comment <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
