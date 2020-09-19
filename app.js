@@ -5,8 +5,18 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport')
 const passportLocalMongoose = require('passport-local-mongoose');
-const today = new Date();
-const date = today.getDate() + '-' + (Number(today.getMonth()) + 1).toString() + '-' + today.getFullYear() + ' at ' + today.getHours() + ':' + today.getMinutes()
+const methodOverride = require('method-override');
+var today = new Date();
+var minutes = '';
+var prevURL = '';
+
+if (Number(today.getMinutes()) < 10){
+    minutes = '0' + today.getMinutes()
+} else {
+    minutes = today.getMinutes()
+}
+
+const date = today.getDate() + '-' + (Number(today.getMonth()) + 1).toString() + '-' + today.getFullYear() + ' at ' + today.getHours() + ':' + minutes
 // const back = require('express-back');
 var passwordMatch = true;
 var userExists = false;
@@ -17,6 +27,7 @@ app.use(express.static('public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 const sessionSecret = process.env.SESSION_SECRET
 
@@ -25,6 +36,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+})
 
 // app.use(back())
 app.use(passport.initialize());
@@ -65,6 +81,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
+    prevURL = req.get('referer')
     res.render('login', {currentUser: req.user});
 })
 
@@ -114,6 +131,9 @@ app.post('/login', function(req, res){
     req.login(user, function(err){
         if(err){
             console.log(err);
+        } else if (prevURL !== "http://localhost:8080/signup"){
+            passport.authenticate('local', {successRedirect: prevURL, failureRedirect: '/login'})(req, res, function(){
+            })
         } else {
             passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login'})(req, res, function(){
             })
@@ -131,12 +151,12 @@ app.get('/news/100-sub-giveaway', (req, res) => {
         if(err){
             console.log(err)
         } else {
-            var reversedComments = [];
-            allComments.forEach(function(comment){
-                reversedComments.push(comment)
-            })
-            reversedComments.reverse()
-            res.render('news/100-sub-giveaway', {comments: reversedComments, currentUser: req.user})
+            // var reversedComments = [];
+            // allComments.forEach(function(comment){
+            //     reversedComments.push(comment)
+            // })
+            // reversedComments.reverse()
+            res.render('news/100-sub-giveaway', {comments: allComments, currentUser: req.user})
         }
     })
 })
@@ -157,6 +177,42 @@ app.post('/100-sub-giveaway/comments', isLoggedIn, (req, res) => {
             res.redirect('/news/100-sub-giveaway')
         }
     })
+})
+
+app.get('/:comment_id/edit', checkCommentOwnership, (req, res) => {
+    prevURL = req.get('referer')
+    Comment.findById(req.params.comment_id, function(err, foundComment){
+        if(err){
+            console.log(err)
+            res.redirect('back')
+        } else {
+            res.render('comments/edit-100-sub-giveaway', {comment: foundComment, commentText: foundComment.text, currentUser: req.user})
+        }
+    })
+})
+
+app.put('/:comment_id', checkCommentOwnership, (req, res) => {
+    Comment.findOneAndUpdate({_id: req.params.comment_id}, {$set:{text: req.body.text}}, function(err, updatedComment){
+        if(err){
+            console.log(err)
+            res.redirect('back')
+        } else {
+            res.redirect(prevURL);
+        }
+    })
+})
+
+app.delete('/:comment_id', checkCommentOwnership, (req, res) => {
+
+    Comment.findByIdAndRemove(req.params.comment_id, function(err, removedComment){
+        if(err){
+            console.log(err)
+            res.redirect('back')
+        } else {
+            res.redirect(prevURL);
+        }
+    })
+    
 })
 
 app.get('/news/my-latest-release', (req, res) => {
@@ -192,6 +248,25 @@ function isLoggedIn(req, res, next){
         return next();
     }
     res.redirect('/login')
+}
+
+function checkCommentOwnership(req, res, next){
+    if(req.isAuthenticated()){
+        Comment.findById(req.params.comment_id, function(err, foundComment){
+            if(err){
+                console.log(err)
+                res.redirect('back')
+            } else {
+                if(foundComment.author.id.equals(req.user._id)){
+                    next()
+                } else {
+                    res.redirect(req.get('referer'));
+                }
+            }
+        })
+    } else {
+        res.redirect('/login')
+    }
 }
 
 

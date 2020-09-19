@@ -134,17 +134,45 @@ hr {
     color: rgb(199, 198, 198);
 }
 
+.readMoreTitle {
+    margin-top: 2rem;
+    text-align: center;
+    color: rgb(199, 198, 198);
+}
+
 .comments-container h5 {
     color: rgb(190, 15, 15);
 }
 
-.comments-c#be0f0f{
+.comments-container a {
     color: inherit;
-    font-size: 0.8rem;
+    /* margin-right: 0.2rem; */
+    font-size: 0.9rem;
 }
+
+/* .comments-container a:hover {
+    transition-duration: 0.3s;
+    color: red;
+} */
 
 .comments-container p {
     color: rgb(194, 194, 194);
+}
+
+.comments-container form {
+    display: inline;
+}
+
+.peripheral-btns {
+    color: inherit;
+    border: none;
+    background: none;
+    font-size: 0.9rem;
+    padding: 0 0.3rem;
+}
+
+.peripheral-btns:hover {
+    color: red;
 }
 
 @media (max-width: 991px){

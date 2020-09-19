@@ -4,6 +4,7 @@
   <div class="embed-responsive embed-responsive-16by9 readMoreVid">
     <iframe class='embed-responsive-item' width="560" height="315" src="https://www.youtube.com/embed/dfTmtDaXBqM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
+  <h1 class='readMoreTitle'>Latest release</h1>
   <p class="readMoreText">This has been quite the struggle. Shit. Watch the video. Do it. Comment below for street cred.</p>
 </div>
 
@@ -14,6 +15,13 @@
     <h5><%= comment.author.username %></h5>
     <h6>on <%= comment.date %></h6>
     <p><%= comment.text %></p>
+    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+
+      <a class="btn peripheral-btns" href="/<%= comment._id %>/edit"><i class="fas fa-edit"></i></a>
+      <form action="/<%= comment._id %>?_method=DELETE" method='POST'>
+        <button class='btn peripheral-btns' type="submit"><i class="fas fa-trash"></i></button>
+      </form>
+    <% } %>
     <hr>
   <% }) %>
 

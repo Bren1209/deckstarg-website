@@ -1,10 +1,10 @@
 <%- include('../partials/header.ejs') %>
 
 <div class="form-container container">
-  <h2>Add a comment</h2>
-  <form action="/100-sub-giveaway/comments" method='POST'>
+  <h2>Edit comment</h2>
+  <form action="/<%= comment._id %>?_method=PUT" method='POST'>
       <div class="form-group">
-        <textarea class="form-control" name="text" id="message" rows="5" required maxlength="210"></textarea>
+        <textarea class="form-control" name="text" rows="5" required maxlength="210"><%= commentText %></textarea>
       </div>
       <button type='submit' class='btn btn-lg btn-dark mt-4'>Submit</button>
   </form>
