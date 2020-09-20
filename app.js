@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(flash())
 
-const sessionSecret = 'deckstarmorelikedickstaramirite'
+const sessionSecret = process.env.SECRET
 
 app.use(session({
     secret: sessionSecret,
