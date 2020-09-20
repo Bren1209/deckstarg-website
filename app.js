@@ -49,7 +49,7 @@ app.use(function(req, res, next){
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb+srv://brenniestandy@gmail.com:BeepBoop@314@cluster0.cz9bm.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.cz9bm.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 // mongoose.connect('mongodb://localhost:27017/deckstarUserDB', {useNewUrlParser: true, useUnifiedTopology: true})
 
 const userSchema = new mongoose.Schema({
