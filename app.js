@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport')
 const passportLocalMongoose = require('passport-local-mongoose');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
 var today = new Date();
 var minutes = '';
 var prevURL = '';
@@ -19,7 +20,6 @@ if (Number(today.getMinutes()) < 10){
 const date = today.getDate() + '-' + (Number(today.getMonth()) + 1).toString() + '-' + today.getFullYear() + ' at ' + today.getHours() + ':' + minutes
 // const back = require('express-back');
 var passwordMatch = true;
-var userExists = false;
 
 const app = express();
 
@@ -28,6 +28,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
+app.use(flash())
 
 const sessionSecret = process.env.SESSION_SECRET
 
@@ -39,6 +40,8 @@ app.use(session({
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 })
 
@@ -46,7 +49,8 @@ app.use(function(req, res, next){
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://localhost:27017/deckstarUserDB', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.cz9bm.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/deckstarUserDB', {useNewUrlParser: true, useUnifiedTopology: true})
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -86,7 +90,11 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/signup', (req, res) => {
-    res.render('signup', {currentUser: req.user, passwordMatch: passwordMatch, userExists: userExists});
+    res.render('signup', {currentUser: req.user, passwordMatch: passwordMatch});
+})
+
+app.get('/profile', (req, res) => {
+    res.render('profile', {currentUser: req.user})
 })
 
 app.post('/signup', function(req, res){
@@ -96,7 +104,7 @@ app.post('/signup', function(req, res){
     const password2 = req.body.password2
 
     if(password != password2){
-        console.log('Passwords do not match.')
+        req.flash('error', 'Passwords do not match.')
         passwordMatch = false
         res.redirect('/signup')
     } else {
@@ -106,12 +114,12 @@ app.post('/signup', function(req, res){
             password, function(err, user){
             if(err){
                 console.log(err);
-                userExists = true
-                res.redirect('signup')
+                req.flash('error', err.message)
+                res.redirect('/signup')
             } else {
-                userExists = false
                 passwordMatch = true
                 passport.authenticate('local')(req, res, function(){
+                    req.flash('success', 'Welcome, ' + user.username + '!')
                     res.redirect('/')
                 })
             }
@@ -131,7 +139,7 @@ app.post('/login', function(req, res){
     req.login(user, function(err){
         if(err){
             console.log(err);
-        } else if (prevURL !== "http://localhost:8080/signup"){
+        } else if (prevURL !== "http://deckstarg.herokuapp.com/signup"){
             passport.authenticate('local', {successRedirect: prevURL, failureRedirect: '/login'})(req, res, function(){
             })
         } else {
@@ -174,6 +182,7 @@ app.post('/100-sub-giveaway/comments', isLoggedIn, (req, res) => {
             comment.author.id = req.user._id;
             comment.author.username = req.user.username
             comment.save()
+            req.flash('success', 'Comment added.')
             res.redirect('/news/100-sub-giveaway')
         }
     })
@@ -197,6 +206,7 @@ app.put('/:comment_id', checkCommentOwnership, (req, res) => {
             console.log(err)
             res.redirect('back')
         } else {
+            req.flash('success', 'Comment updated.')
             res.redirect(prevURL);
         }
     })
@@ -209,7 +219,8 @@ app.delete('/:comment_id', checkCommentOwnership, (req, res) => {
             console.log(err)
             res.redirect('back')
         } else {
-            res.redirect(prevURL);
+            req.flash('success', 'Comment deleted.')
+            res.redirect('back');
         }
     })
     
@@ -247,6 +258,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash('error', 'Please login first.')
     res.redirect('/login')
 }
 
@@ -254,17 +266,20 @@ function checkCommentOwnership(req, res, next){
     if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
             if(err){
+                req.flash('error', 'Could not find comment ID on database.')
                 console.log(err)
                 res.redirect('back')
             } else {
                 if(foundComment.author.id.equals(req.user._id)){
                     next()
                 } else {
+                    req.flash('error', 'You do not own this comment.')
                     res.redirect(req.get('referer'));
                 }
             }
         })
     } else {
+        req.flash('error', 'Please login first.')
         res.redirect('/login')
     }
 }

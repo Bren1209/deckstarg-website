@@ -175,6 +175,10 @@ hr {
     color: red;
 }
 
+.alert {
+    margin: 0.5rem auto;
+}
+
 @media (max-width: 991px){
 
     .nav-item {
@@ -203,5 +207,10 @@ hr {
 
     .nav-link {
         color: rgb(255, 251, 251) !important;
+    }
+
+    .readMoreVid {
+        margin-top: 1rem;
+        width: 90%;
     }
 }

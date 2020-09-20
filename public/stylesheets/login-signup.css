@@ -22,3 +22,19 @@
   width: 100%;
   bottom: 0%;
 }
+
+@media (max-width: 792px){
+
+  .form-container{
+    width: 60%;
+  }
+
+}
+
+@media (max-width: 550px){
+
+  .form-container{
+    width: 80%;
+  }
+
+}

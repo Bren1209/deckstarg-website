@@ -4,7 +4,7 @@
   <h2>Edit comment</h2>
   <form action="/<%= comment._id %>?_method=PUT" method='POST'>
       <div class="form-group">
-        <textarea class="form-control" name="text" rows="5" required maxlength="210"><%= commentText %></textarea>
+        <textarea class="form-control" name="text" rows="3" required maxlength="210"><%= commentText %></textarea>
       </div>
       <button type='submit' class='btn btn-lg btn-dark mt-4'>Submit</button>
   </form>

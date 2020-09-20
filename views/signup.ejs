@@ -2,12 +2,6 @@
 
             <div class="form-container container">
                 <h2>Sign up to comment!</h2>
-                <% if(!passwordMatch){ %>
-                    <p style="color: red;">Passwords do not match.</p>
-                <% } %>
-                <% if(userExists){ %>
-                    <p style="color: red;">That username already exists. <a href="mailto:info@bren-10.co.za">Report issue</a></p>
-                <% } %>
                 <form action="/signup" method='POST'>
                     <div class="form-group">
                         <input type="text" class='form-control' name='username' placeholder="Username" required maxlength="30">
